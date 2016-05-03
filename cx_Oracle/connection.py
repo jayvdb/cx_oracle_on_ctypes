@@ -104,8 +104,10 @@ class Connection(object):
             self.environment.check_for_error(status, "Connection_Connect(): set user name")
 
         # set password in session handle
+        if not self.password:
+            self.password = ''
         buffer = cxBuffer.new_from_object(self.password, self.environment.encoding)
-        if self.password and buffer.size > 0:
+        if True:
             credential_type = oci.OCI_CRED_RDBMS
             status = oci.OCIAttrSet(self.session_handle, oci.OCI_HTYPE_SESSION, buffer.ptr, buffer.size, oci.OCI_ATTR_PASSWORD, self.environment.error_handle)
             self.environment.check_for_error(status, "Connection_Connect(): set password")
