@@ -98,14 +98,14 @@ class Connection(object):
 
         # set user name in session handle
         buffer = cxBuffer.new_from_object(self.username, self.environment.encoding)
-        if buffer.size > 0:
+        if self.username and buffer.size > 0:
             credential_type = oci.OCI_CRED_RDBMS
             status = oci.OCIAttrSet(self.session_handle, oci.OCI_HTYPE_SESSION, buffer.ptr, buffer.size, oci.OCI_ATTR_USERNAME, self.environment.error_handle)
             self.environment.check_for_error(status, "Connection_Connect(): set user name")
 
         # set password in session handle
         buffer = cxBuffer.new_from_object(self.password, self.environment.encoding)
-        if buffer.size > 0:
+        if self.password and buffer.size > 0:
             credential_type = oci.OCI_CRED_RDBMS
             status = oci.OCIAttrSet(self.session_handle, oci.OCI_HTYPE_SESSION, buffer.ptr, buffer.size, oci.OCI_ATTR_PASSWORD, self.environment.error_handle)
             self.environment.check_for_error(status, "Connection_Connect(): set password")
