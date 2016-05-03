@@ -107,7 +107,7 @@ class Connection(object):
         if not self.password:
             self.password = ''
         buffer = cxBuffer.new_from_object(self.password, self.environment.encoding)
-        if True:
+        if self.password and buffer.size > 0:
             credential_type = oci.OCI_CRED_RDBMS
             status = oci.OCIAttrSet(self.session_handle, oci.OCI_HTYPE_SESSION, buffer.ptr, buffer.size, oci.OCI_ATTR_PASSWORD, self.environment.error_handle)
             self.environment.check_for_error(status, "Connection_Connect(): set password")
@@ -126,6 +126,13 @@ class Connection(object):
         #TODO: implement change_password
         if newpassword:
             return self.change_password(self.password) # TODO: removed one arg, what about the new password?!?!
+
+        if credential_type == oci.OCI_CRED_RDBMS:
+            print('credential_type = OCI_CRED_RDBMS')
+        elif credential_type == oci.OCI_CRED_EXT:
+            print('credential_type = OCI_CRED_EXT')
+        else:
+            print('credential_type = unknown')
 
         # begin the session
         status = oci.OCISessionBegin(self.handle, self.environment.error_handle, self.session_handle, credential_type, mode)
