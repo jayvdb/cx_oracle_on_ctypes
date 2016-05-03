@@ -40,7 +40,9 @@ class Connection(object):
             self.environment = pool.environment.clone()
         else:
             self.environment = Environment.new_from_scratch(threaded, events, encoding, nencoding)
-        
+
+        print('connecting using %s : %s : %s' % (user, password, dsn))
+
         # treat the form user/pwd@tns
         if user and '/' in user:
             user, password = user.split('/', 1)
