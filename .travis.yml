@@ -8,13 +8,18 @@ env:
     - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
     - ORACLE_SID=XE
     - PATH=$PATH:$ORACLE_HOME/bin
-    - LD_LIRBARY_PATH=$ORACLE_HOME/lib
+    - LD_LIBRARY_PATH=$ORACLE_HOME/lib
     - CX_ORACLE_USERNAME=cx_Oracle
     - CX_ORACLE_PASSWORD=dev
     - CX_ORACLE_TNSENTRY=XE
     - CX_ORACLE_ARRAY_SIZE=1024
 
 before_install:
+  - if [ -z "$ORACLE_LOGIN_ssousername" -o -z "$ORACLE_LOGIN_password" ]; then
+      echo ORACLE_LOGIN_ssousername or ORACLE_LOGIN_password are not set ;
+      echo Oracle XE can not be installed ;
+      exit 101 ;
+    fi
   - wget 'https://github.com/cbandy/travis-oracle/archive/v2.0.0.tar.gz'
   - mkdir -p .travis/oracle
   - tar xz --strip-components 1 -C .travis/oracle -f v2.0.0.tar.gz
@@ -24,4 +29,5 @@ before_install:
 script:
   - sqlplus -L -S sys/travis AS SYSDBA < test/SetupTest.sql
   - python setup.py install
+  - ls $LD_LIBRARY_PATH
   - python test/test.py
