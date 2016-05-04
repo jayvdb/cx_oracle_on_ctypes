@@ -22,4 +22,4 @@ before_install:
   - .travis/oracle/install.sh
 
 script:
-  - sh -x test/setup_db.sh
+  - sqlplus sys/travis AS SYSDBA /nolog @test/SetupTest.sql
