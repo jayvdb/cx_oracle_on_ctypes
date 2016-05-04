@@ -29,5 +29,4 @@ before_install:
 script:
   - sqlplus -L -S sys/travis AS SYSDBA < test/SetupTest.sql
   - python setup.py install
-  - ls $LD_LIBRARY_PATH
-  - python test/test.py
+  - cd test/passing && python test.py
