@@ -30,4 +30,5 @@ script:
   - sqlplus -L -S sys/travis AS SYSDBA < test/SetupTest.sql
   - python setup.py install
   - cd test/passing
-  - sh -x tests_cpy.sh
+  - python test.py Connection uConnection Cursor uCursor CursorVar uCursorVar DateTimeVar uDateTimeVar IntervalVar uIntervalVar LobVar uLobVar NumberVar uNumberVar StringVar uStringVar TimestampVar uTimestampVar
+  # - python test.py Connection uConnection Cursor uCursor StringVar uStringVar NumberVar uNumberVar DateTimeVar uDateTimeVar LobVar uLobVar TimestampVar uTimestampVar IntervalVar uIntervalVar CursorVar uCursorVar

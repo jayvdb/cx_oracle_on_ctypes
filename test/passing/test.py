@@ -28,6 +28,8 @@ else:
             "uIntervalVar",
             "LobVar",
             "uLobVar",
+            "LongVar",
+            "uLongVar",
             "NumberVar",
             "uNumberVar",
             "ObjectVar",
